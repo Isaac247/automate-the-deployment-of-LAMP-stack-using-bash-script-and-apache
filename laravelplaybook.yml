@@ -1,0 +1,28 @@
+---
+- name: Deploy lamp stack
+  hosts: all
+  become: true
+  tasks:
+    - name: Copy file with owner and permissions
+      ansible.builtin.copy:
+        src: /home/vagrant/altschool/exam.sh
+        dest: /home/vagrant/exam.sh
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: install lamp stack and laravel
+      script: /home/vagrant/altschool/exam.sh
+
+
+- name: Configure cron job to check server uptime
+  hosts: all
+  become: yes
+  tasks:
+    - name: Add cron job to check uptime
+      cron:
+        name: Check server uptime
+        minute: 0
+        hour: 0
+        job: /usr/bin/uptime >> /var/log/uptime.log 2>&1
+        state: present

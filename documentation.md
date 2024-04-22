@@ -78,3 +78,31 @@ Insert the following chracters to the repective lines
 #### 3. Restart apache
 `sudo systemctl restart apache2`
 ## Automating the shell script using ansible
+#### 1. Create a task to copy the scriptfrom the master node to the slave node
+- name: Deploy lamp stack  
+  hosts: all  
+  become: true   
+  tasks:  
+    `- name: Copy file with owner and permissions`  
+      `ansible.builtin.copy:`  
+          `src: /home/vagrant/altschool/exam.sh`  
+           `dest: /home/vagrant/exam.sh`  
+            `owner: root`  
+              `group: root`  
+                `mode: '0755'`
+      
+#### 2. Use the script module to run the task on the slave node 
+    `- name: install lamp stack and laravel
+      script: /home/vagrant/altschool/exam.sh`
+#### 3. Configure cron job to check server up time
+`- name: Configure cron job to check server uptime`  
+  `hosts: all`  
+  `become: yes`  
+  `tasks:`  
+   ` - name: Add cron job to check uptime`  
+    `  cron:`  
+     `   name: Check server uptime`  
+      `  minute: 0`  
+       ` hour: 0`   
+        `job: /usr/bin/uptime >> /var/log/uptime.log 2>&1`  
+        `state: present`

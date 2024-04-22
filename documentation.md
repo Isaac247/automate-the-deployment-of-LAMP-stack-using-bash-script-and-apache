@@ -106,3 +106,7 @@ Insert the following chracters to the repective lines
        ` hour: 0`   
         `job: /usr/bin/uptime >> /var/log/uptime.log 2>&1`  
         `state: present`
+### Playbook Running
+![playbook.png](images/laravelplaybook.PNG)   
+### Laravelapp Running
+![playbook.png](images/laravelapp.PNG)

@@ -1,1 +1,1 @@
-# second-semester-exam-altschool-
+# Automating the deployment of a LAMP stack using Bash script and apache
